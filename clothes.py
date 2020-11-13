@@ -1,20 +1,26 @@
-#네이버 날씨 크롤링
-from urllib.request import urlopen, Request
-import urllib
-import bs4
+#[네이버 날씨 크롤링]
+import urllib.request
+from bs4 import BeautifulSoup
 
-location = input()
-enc_location = urllib.parse.quote(location + '+ 날씨')
+area = input()
+enc_area = urllib.parse.quote(area + "+ 날씨")
 
-url = "https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=" + enc_location
+url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + enc_area
+html = urllib.request.urlopen(url).read()
+soup = BeautifulSoup(html, "html.parser")
 
-req = Request(url)
-page = urlopen(req)
-html = page.read()
-soup = bs4.BeautifulSoup(html,"html.parser")
+# area의 날씨
+temperature = soup.find("p", class_="info_temperature").find("span", class_="todaytemp").text
+
+# 맑음, 어제보다 0˚ 높아요
+cast = soup.find("p", attrs={"class":"cast_txt"}).get_text()
+
+print(temperature)
+print(cast)
 
 
-# 기온별 옷차림 정보
+
+#[기온별 옷차림 정보]
 
 if temperature <= 4:
     print("적당한 옷차림은 패딩, 두꺼운 코트, 누빔 옷, 기모, 목도리 입니다.")
