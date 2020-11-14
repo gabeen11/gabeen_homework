@@ -2,7 +2,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
-area = input()
+area = input("지역을 입력하세요(ex:ㅁㅁ동) >> ")
 enc_area = urllib.parse.quote(area + "+ 날씨")
 
 url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + enc_area
