@@ -21,6 +21,7 @@ print(cast)
 
 
 #[기온별 옷차림 정보]
+temperature = float(input("기온을 입력하세요 >> "))
 
 if temperature <= 4:
     print("적당한 옷차림은 패딩, 두꺼운 코트, 누빔 옷, 기모, 목도리 입니다.")
