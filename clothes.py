@@ -2,7 +2,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
-area = input("지역을 입력하세요(ex:ㅁㅁ동) >> ")
+area = input("지역을 입력하세요. (예시: □□동) >> ")
 enc_area = urllib.parse.quote(area + "+ 날씨")
 
 url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=" + enc_area
@@ -15,13 +15,13 @@ temperature = soup.find("p", class_="info_temperature").find("span", class_="tod
 # 맑음, 어제보다 0˚ 높아요
 cast = soup.find("p", attrs={"class":"cast_txt"}).get_text()
 
-print(temperature)
-print(cast)
+print("오늘 " + area + "의 기온은 " + temperature + "˚ 입니다.")
+print(cast + "!")
 
 
 
 #[기온별 옷차림 정보]
-temperature = float(input("기온을 입력하세요 >> "))
+temperature = float(soup.find("p", class_="info_temperature").find("span", class_="todaytemp").text)
 
 if temperature <= 4:
     print("적당한 옷차림은 패딩, 두꺼운 코트, 누빔 옷, 기모, 목도리 입니다.")
